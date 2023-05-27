@@ -20,39 +20,39 @@ import jakarta.validation.constraints.NotNull;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "promocoes")
-public class Promocao implements Serializable {
+@Table(name = "promotions")
+public class Promotion implements Serializable {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotBlank()
 	@Column(name = "title", nullable = false)
-	private String titulo;
+	private String title;
 	
 	@NotBlank()
 	@Column(name = "promotion_Link", nullable = false)
-	private String linkPromocao;
+	private String promotionLink;
 	
 	@Column(nullable = false)
 	private String site;
 	
 	@Column(name = "description")
-	private String descricao;
+	private String description;
 	
 	@Column(name = "image_link",nullable = false)
-	private String linkImagem;
+	private String imageLink;
 	
 	@NotNull()
 	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	@Column(name = "promotion_price",nullable = false)
-	private BigDecimal preco;
+	private BigDecimal price;
 	
 	@Column(name = "total_likes")
 	private int likes;
 	
 	@Column(name = "registration_Date", nullable = false)
-	private LocalDateTime dtCadastro;
+	private LocalDateTime registrationDate;
 
 	@NotNull()
 	@ManyToOne
@@ -67,20 +67,20 @@ public class Promocao implements Serializable {
 		this.id = id;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getLinkPromocao() {
-		return linkPromocao;
+	public String getPromotionLink() {
+		return promotionLink;
 	}
 
-	public void setLinkPromocao(String linkPromocao) {
-		this.linkPromocao = linkPromocao;
+	public void setPromotionLink(String promotionLink) {
+		this.promotionLink = promotionLink;
 	}
 
 	public String getSite() {
@@ -91,28 +91,28 @@ public class Promocao implements Serializable {
 		this.site = site;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getLinkImagem() {
-		return linkImagem;
+	public String getImageLink() {
+		return imageLink;
 	}
 
-	public void setLinkImagem(String linkImagem) {
-		this.linkImagem = linkImagem;
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
 	}
 
-	public BigDecimal getPreco() {
-		return preco;
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	public int getLikes() {
@@ -123,12 +123,12 @@ public class Promocao implements Serializable {
 		this.likes = likes;
 	}
 
-	public LocalDateTime getDtCadastro() {
-		return dtCadastro;
+	public LocalDateTime getRegistrationDate() {
+		return registrationDate;
 	}
 
-	public void setDtCadastro(LocalDateTime dtCadastro) {
-		this.dtCadastro = dtCadastro;
+	public void setRegistrationDate(LocalDateTime registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 	public Category getCategory() {
@@ -141,10 +141,9 @@ public class Promocao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Promocao [id=" + id + ", titulo=" + titulo + ", linkPromocao=" + linkPromocao + ", site=" + site
-				+ ", descricao=" + descricao + ", linkImagem=" + linkImagem + ", preco=" + preco + ", likes=" + likes
-				+ ", dtCadastro=" + dtCadastro + ", category=" + category + "]";
+		return "Promotion [id=" + id + ", title=" + title + ", promotionLink=" + promotionLink + ", site=" + site
+				+ ", description=" + description + ", imageLink=" + imageLink + ", price=" + price + ", likes=" + likes
+				+ ", registrationDate=" + registrationDate + ", category=" + category + "]";
 	}
-	
 	
 }

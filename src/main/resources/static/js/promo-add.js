@@ -3,27 +3,27 @@ $("#form-add-promo").submit(function(evt) {
 	//Block default submit behavior (Auto Refresh)
 	evt.preventDefault();
 	
-	var promo = {};
-	promo.titulo = $("#titulo").val();
-	promo.linkPromocao = $("#linkPromocao").val();
+	let promo = {};
+	promo.title = $("#title").val();
+	promo.promotionLink = $("#promotionLink").val();
 	promo.site = $("#site").text();
-	promo.descricao = $("#descricao").val();
-	promo.linkImagem = $("#linkImagem").attr("src");
-	promo.preco = $("#preco").val();
+	promo.description = $("#description").val();
+	promo.imageLink = $("#imageLink").attr("src");
+	promo.price = $("#price").val();
 	promo.category = $("#category").val();
 	
 	console.log('promo > ', promo);
 	
 	$.ajax({
 		method: "POST",
-		url: "/promocao/save",
+		url: "/promotion/save",
 		data: promo,
 		beforeSend: function() {
 			//Removing the messages and alert borders
 			$("span").closest('.error-span').remove();
-			$("#titulo").removeClass("is-invalid");
-			$("#linkPromocao").removeClass("is-invalid");
-			$("#preco").removeClass("is-invalid");
+			$("#title").removeClass("is-invalid");
+			$("#promotionLink").removeClass("is-invalid");
+			$("#price").removeClass("is-invalid");
 			$("#category").removeClass("is-invalid");
 			
 			//Enable loading
@@ -34,7 +34,7 @@ $("#form-add-promo").submit(function(evt) {
 			$("#form-add-promo").each(function() {
 				this.reset();
 			});
-			$("#linkImagem").attr("src", "/images/promo-dark.png");
+			$("#imageLink").attr("src", "/images/promo-dark.png");
 			$("#site").text("");
 			$("#alert")
 				.removeClass("alert alert-danger")
@@ -44,7 +44,7 @@ $("#form-add-promo").submit(function(evt) {
 		statusCode: {
 			422: function(xhr) {
 				console.log('status error:', xhr.status);
-				var errors = $.parseJSON(xhr.responseText);
+				let errors = $.parseJSON(xhr.responseText);
 				$.each(errors, function(key, val){
 					$("#" + key).addClass("is-invalid");
 					$("#error-" + key)
@@ -68,9 +68,9 @@ $("#form-add-promo").submit(function(evt) {
 });
 
 // Function to capture meta tags
-$("#linkPromocao").on('change', function() {
+$("#promotionLink").on('change', function() {
 
-	var url = $(this).val();
+	let url = $(this).val();
 	
 	if (url.length > 7) {
 		
@@ -80,26 +80,26 @@ $("#linkPromocao").on('change', function() {
 			cache: false,
 			beforeSend: function() {
 				$("#alert").removeClass("alert alert-danger alert-success").text('');
-				$("#titulo").val("");
+				$("#title").val("");
 				$("#site").text("");
-				$("#linkImagem").attr("src", "");
+				$("#imageLink").attr("src", "");
 				$("#loader-img").addClass("loader");
 			},
 			success: function( data ) {
 				console.log(data);
-				$("#titulo").val(data.title);
+				$("#title").val(data.title);
 				$("#site").text(data.site.replace("@", ""));
-				$("#linkImagem").attr("src", data.image);
+				$("#imageLink").attr("src", data.image);
 			},
 			statusCode: {
 				404: function() {
-					$("#alert").addClass("alert alert-danger").text("Nenhuma informação pode ser recuperada dessa url.");
-					$("#linkImagem").attr("src", "/images/promo-dark.png");
+					$("#alert").addClass("alert alert-danger").text("No information can be retrieved from that URL.");
+					$("#imageLink").attr("src", "/images/promo-dark.png");
 				}
 			},
 			error: function() {
-				$("#alert").addClass("alert alert-danger").text("Ops... algo deu errado, tente mais tarde.");
-				$("#linkImagem").attr("src", "/images/promo-dark.png");
+				$("#alert").addClass("alert alert-danger").text("Oops... something went wrong, try again later.");
+				$("#imageLink").attr("src", "/images/promo-dark.png");
 			},
 			complete: function() {
 				$("#loader-img").removeClass("loader");

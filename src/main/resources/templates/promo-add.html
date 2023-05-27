@@ -1,75 +1,67 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-</head>
-<body>
+<html lang="en" layout:decorate="~{layout}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Record</title>
+    </head>
+    <body>
+        <div class="body" layout:fragment="body">
+            <div id="loader-form" class="pre-load"></div>
 
-<div class="corpo" layout:fragment="corpo">
+            <form id="form-add-promo" action="#">
+                <div id="alert"></div>
 
-    <div id="loader-form" class="pre-load"></div>
+                <div class="form-group">
+                    <label for="promotionLink" th:text="#{label.title.offerLink}"></label>
+                    <input type="url" class="form-control" id="promotionLink" name="promotionLink" aria-describedby="offerLink" placeholder="Ex.: http://www..." />
+                    <small id="offerLink" class="form-text text-muted" th:text="#{small.note.offerLink}"></small>
+                    <div id="error-promotionLink" class=""></div>
+                </div>
+                <div class="form-group">
+                    <label for="title" th:text="#{label.title.offerTitle}"></label>
+                    <input type="text" class="form-control" id="title" name="title" aria-describedby="offerTitle" />
+                    <small id="offerTitle" class="form-text text-muted" th:text="#{small.note.offerTitle}"></small>
+                    <div id="error-title"></div>
+                </div>
 
-    <form id="form-add-promo" action="#">
-
-        <div id="alert"></div>
-
-        <div class="form-group">
-            <label for="linkPromocao">Link da Oferta</label>
-            <input type="url" class="form-control" id="linkPromocao" name="linkPromocao" aria-describedby="linkOferta"
-                   placeholder="Ex.: http://www..."/>
-            <small id="linkOferta" class="form-text text-muted">Insira o link da promocao correspondente a oferta.
-            </small>
-            <div id="error-linkPromocao" class=""></div>
-        </div>
-        <div class="form-group">
-            <label for="titulo">Título da Oferta</label>
-            <input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="tituloOferta"/>
-            <small id="tituloOferta" class="form-text text-muted">Carregamento automático, mas pode ser editado.</small>
-            <div id="error-titulo"></div>
-        </div>
-
-        <div class="form-row">
-            <div class=" col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-header">Imagem</div>
-                    <span class="mx-auto" id="loader-img"></span>
-                    <img id="linkImagem" name="linkImagem" class="card-img-top" th:src="@{/images/promo-dark.png}" width="308px"/>
-                    <div class="card-body bg-light">
-                        <h5 id="site" class="card-title"></h5>
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-header" th:text="#{span.image}"></div>
+                            <span class="mx-auto" id="loader-img"></span>
+                            <img id="imageLink" alt="product image" class="card-img-top" th:src="@{/images/promo-dark.png}" width="308px" />
+                            <div class="card-body bg-light">
+                                <h5 id="site" class="card-title"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="price" th:text="#{label.title.price}"></label>
+                            <input type="text" class="form-control" id="price" name="price" placeholder="ex.: 59,99" data-mask="#.##" data-mask-reverse="true" />
+                            <div id="error-price" class=""></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="category" th:text="#{label.title.category}"></label>
+                            <select id="category" name="category" class="form-control">
+                                <option value="">Select</option>
+                                <option th:each="c : ${categories}" th:text="${c.title}" th:value="${c.id}">...</option>
+                            </select>
+                            <div id="error-category"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" th:text="#{label.title.description}"></label>
+                            <textarea class="form-control" id="description" name="description" placeholder="Something about the promotion or product..."></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label for="preco">Preço da Oferta</label>
-                    <input type="text" class="form-control" id="preco" name="preco" placeholder="ex.: 59,99"
-                           data-mask="#.##0,00"
-                           data-mask-reverse="true"/>
-                    <div id="error-preco" class=""></div>
+                <div class="row p-3">
+                    <button id="btn-og" class="btn btn-primary btn-lg btn-block" th:text="#{button.submit}"></button>
+                    <span id="loader-img-btn"></span>
                 </div>
-                <div class="form-group">
-                    <label for="category">Categoria do Produto</label>
-                    <select id="category" name="category" class="form-control">
-                        <option value="">Selecione</option>
-                        <option th:each="c : ${categories}" th:text="${c.titulo}" th:value="${c.id}">...</option>
-                    </select>
-                    <div id="error-category"></div>
-                </div>
-                <div class="form-group">
-                    <label for="descricao">Descrição da Oferta</label>
-                    <textarea class="form-control" id="descricao" name="descricao"
-                              placeholder="Algo sobre a promoção ou produto..."></textarea>
-                </div>
-            </div>
+            </form>
         </div>
-        <div class="row p-3">
-            <button id="btn-og" class="btn btn-primary btn-lg btn-block">Cadastrar</button>
-            <span id="loader-img-btn"></span>
-        </div>
-    </form>
 
-</div>
-
-<script th:src="@{/js/promo-add.js}" th:fragment="js"></script>
-</body>
+        <script th:src="@{/js/promo-add.js}" th:fragment="js"></script>
+    </body>
 </html>

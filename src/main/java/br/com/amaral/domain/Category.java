@@ -20,10 +20,10 @@ public class Category implements Serializable {
 	private Long id;
 	
 	@Column(name = "title", nullable = false, unique = true)
-	private String titulo;
+	private String title;
 	
 	@OneToMany(mappedBy = "category")
-	private List<Promocao> promocoes;
+	private List<Promotion> promotions;
 
 	public Long getId() {
 		return id;
@@ -33,25 +33,25 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public List<Promocao> getPromocoes() {
-		return promocoes;
+	public List<Promotion> getPromotions() {
+		return promotions;
 	}
 
-	public void setPromocoes(List<Promocao> promocoes) {
-		this.promocoes = promocoes;
+	public void setPromotions(List<Promotion> promotions) {
+		this.promotions = promotions;
 	}
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", titulo=" + titulo + "]";
+		return "Category [id=" + id + ", title=" + title + "]";
 	}
 	
 }

@@ -20,24 +20,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.amaral.domain.Category;
-import br.com.amaral.domain.Promocao;
+import br.com.amaral.domain.Promotion;
 import br.com.amaral.repository.ICategoryRepository;
-import br.com.amaral.repository.IPromocaoRepository;
+import br.com.amaral.repository.IPromotionRepository;
 
 @Controller
-@RequestMapping("/promocao")
-public class PromocaoController {
+@RequestMapping("/promotion")
+public class PromotionController {
 	
-	private static Logger log = LoggerFactory.getLogger(PromocaoController.class);
+	private static Logger log = LoggerFactory.getLogger(PromotionController.class);
 	
 	@Autowired
-	private IPromocaoRepository promocaoRepository;
+	private IPromotionRepository promotionRepository;
 	
 	@Autowired
 	private ICategoryRepository categoryRepository;
 	
 	@PostMapping("/save")
-	public ResponseEntity<?> salvarPromocao(@Valid Promocao promocao, BindingResult result) {
+	public ResponseEntity<?> salvarPromocao(@Valid Promotion promotion, BindingResult result) {
 		
 		if (result.hasErrors()) {
 			
@@ -48,9 +48,9 @@ public class PromocaoController {
 			return ResponseEntity.unprocessableEntity().body(errors);
 		}
 
-		log.info("Promocao {}", promocao.toString());
-		promocao.setDtCadastro(LocalDateTime.now());
-		promocaoRepository.save(promocao);
+		log.info("Promotion {}", promotion.toString());
+		promotion.setRegistrationDate(LocalDateTime.now());
+		promotionRepository.save(promotion);
 		return ResponseEntity.ok().build();
 	}
 	
