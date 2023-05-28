@@ -8,6 +8,9 @@
             	<p class="card-subtitle mb-2 text-muted" th:text="${#strings.abbreviate(promo.title, 40)}"></p>
             </div>
             <div>
+				<h5 class="card-title" th:text="${promo.site}">site.com.br</h5>
+			</div>
+            <div>
             	<p class="card-text" th:text="${#strings.abbreviate(promo.description, 40)}"></p>
             </div>
             <div>
@@ -22,7 +25,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <small class="text-muted" th:text="${#temporals.format(promo.registrationDate, 'dd/MM/yyyy')}">9 mins</small>
+            <small class="text-muted" th:text="${#temporals.format(promo.registrationDate, 'dd/MM/yyyy')}"></small>
         </div>
     </div>
 </div>
