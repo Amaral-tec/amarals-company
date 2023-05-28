@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Listing</title>
+    </head>
+    <body>
+        <div class="body" layout:fragment="body">
+            <main role="main">
+                <section class="jumbotron text-center pt-3 pb-3">
+                    <div class="container">
+                        <h1 class="jumbotron-heading" th:text="#{h1.title.promo}"></h1>
+                        <p class="lead text-muted" th:text="#{p.title.promo}">.</p>
+
+                        <form id="form-autocomplete">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <input id="autocomplete-input" name="site" type="text" class="form-control" placeholder="Search for your product here..." />
+                                </div>
+                                <div class="col-md-1 d-flex justify-content-end">
+                                    <button id="autocomplete-submit" type="button" class="btn btn-primary" th:text="#{buttom.autocomplete-submit}"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <div class="album py-5 bg-light">
+                    <div class="container">
+                        <div class="form-group">
+                            <button id="btn-alert" class="btn btn-warning btn-lg btn-block hidden" style="display: none;"></button>
+                        </div>
+
+                        <div class="row" th:insert="~{promotion/card}"></div>
+
+                        <div id="loading">
+                            <div id="loader-img" class="mx-auto loader"></div>
+                            <a id="fim-btn" type="button" href="#" class="btn btn-info mx-auto">Back to the top</a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <script th:src="@{/js/promo-list.js}" th:fragment="js"></script>
+    </body>
+</html>

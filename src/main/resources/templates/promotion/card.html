@@ -1,0 +1,28 @@
+<div class="card-group col-md-3 pb-4" th:each="promo : ${promotions}">
+    <div th:id="${promo.id}" class="card">
+        <div class="block-img">
+            <img class="card-img-top" th:src="${promo.imageLink}" alt="Card image cap" width="245" height="245"/>
+        </div>
+        <div class="card-body">
+        	<div>
+            	<p class="card-subtitle mb-2 text-muted" th:text="${#strings.abbreviate(promo.title, 40)}"></p>
+            </div>
+            <div>
+            	<p class="card-text" th:text="${#strings.abbreviate(promo.description, 40)}"></p>
+            </div>
+            <div>
+                <h6 class="badge bg-primary" th:text="|R$ ${{promo.price}}|"></h6>
+            </div>
+            <div class="btn-group">
+                <button th:id="${'likes-count-' + promo.id}" type="button" class="btn btn-sm btn-outline-secondary" th:text="${promo.likes}"></button>
+                <button th:id="${'likes-btn-' + promo.id}" type="button" class="btn btn-sm btn-outline-secondary">
+                    <i class="far fa-thumbs-up"></i>
+                </button>
+                <a th:href="${promo.promotionLink}" class="btn btn-sm btn-outline-secondary" role="button" aria-pressed="true" target="new">Ver Oferta</a>
+            </div>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted" th:text="${#temporals.format(promo.registrationDate, 'dd/MM/yyyy')}">9 mins</small>
+        </div>
+    </div>
+</div>

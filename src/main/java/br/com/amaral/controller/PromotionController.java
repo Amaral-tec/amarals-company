@@ -10,14 +10,18 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.amaral.domain.Category;
 import br.com.amaral.domain.Promotion;
@@ -35,6 +39,23 @@ public class PromotionController {
 	
 	@Autowired
 	private ICategoryRepository categoryRepository;
+	
+	@GetMapping("/list")
+	public String listOffers(ModelMap model) {
+		Sort sort = Sort.by(Sort.Direction.DESC, "registrationDate");
+		PageRequest pageRequest = PageRequest.of(0, 8, sort);
+		model.addAttribute("promotions", promotionRepository.findAll(pageRequest));
+		return "promotion/list";
+	}
+	
+	@GetMapping("/list/ajax")
+	public String listCards(@RequestParam(name = "page", defaultValue = "1") int page, ModelMap model) {
+		Sort sort = Sort.by(Sort.Direction.DESC, "registrationDate");
+		PageRequest pageRequest = PageRequest.of(page, 8, sort);
+		model.addAttribute("promotions", promotionRepository.findAll(pageRequest));
+		return "promotion/card";
+	}
+
 	
 	@PostMapping("/save")
 	public ResponseEntity<?> salvarPromocao(@Valid Promotion promotion, BindingResult result) {
